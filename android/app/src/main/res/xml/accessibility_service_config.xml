@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    AccessibilityService configuration for FocusShield.
+
+    IMPORTANT for Play Store:
+    - canRetrieveWindowContent="false" is required.
+      The service ONLY detects foreground app changes (TYPE_WINDOW_STATE_CHANGED)
+      to redirect users away from blocked apps. It does NOT read screen content,
+      passwords, messages, or any personal text.
+-->
+<accessibility-service
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault"
+    android:canRetrieveWindowContent="false"
+    android:description="@string/accessibility_service_description"
+    android:notificationTimeout="100"
+    android:settingsActivity=".MainActivity" />

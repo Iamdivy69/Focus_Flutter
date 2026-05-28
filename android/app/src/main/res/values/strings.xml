@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FocusShield</string>
+    <string name="accessibility_service_description">
+        FocusShield uses the Accessibility Service only to detect when you open a blocked app
+        and redirect you away from it. It does not read your screen content, passwords,
+        messages, or any personal text. Your app usage data is processed entirely on your
+        device and is never uploaded to our servers.
+    </string>
+</resources>
