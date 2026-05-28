@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/navigation/app_router.dart';
-import '../../../core/theme/app_theme.dart';
+import '../../../core/theme/color_palette.dart';
+import '../../../core/theme/typography.dart';
+import '../../../core/theme/widgets/animated_gradient_background.dart';
+import '../../../core/theme/widgets/cyber_gradient_button.dart';
+import '../../../core/theme/widgets/neon_icon_badge.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -14,21 +18,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
+  // Consistent green identity — no multi-color accent chaos
   final List<_OnboardingPage> _pages = const [
     _OnboardingPage(
       icon: Icons.shield_rounded,
+      iconColor: CyberColors.neonGreen,
       title: 'Take Back Your Focus',
       description:
           'FocusShield uses AI to understand your digital habits and gently guide you toward healthier screen time — one day at a time.',
     ),
     _OnboardingPage(
       icon: Icons.psychology_rounded,
+      iconColor: CyberColors.neonGreen,
       title: 'AI That Learns You',
       description:
           'Our on-device ML model analyses your usage patterns and adapts app limits to your personal rhythm — no data ever leaves your phone.',
     ),
     _OnboardingPage(
       icon: Icons.lock_rounded,
+      iconColor: CyberColors.neonGreen,
       title: 'Privacy First',
       description:
           'All processing happens on your device. We never read your messages, passwords, or screen content. Your data is yours.',
@@ -44,8 +52,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void _onNext() {
     if (_currentPage < _pages.length - 1) {
       _pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
+        duration: const Duration(milliseconds: 380),
+        curve: Curves.easeOutCubic,
       );
     } else {
       context.go(AppRoutes.registration);
@@ -55,80 +63,118 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: _pages.length,
-                onPageChanged: (index) =>
-                    setState(() => _currentPage = index),
-                itemBuilder: (context, index) {
-                  final page = _pages[index];
-                  return Padding(
-                    padding: const EdgeInsets.all(32),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          page.icon,
-                          size: 100,
-                          color: AppColors.primary,
-                        ),
-                        const SizedBox(height: 40),
-                        Text(
-                          page.title,
-                          style: Theme.of(context).textTheme.headlineMedium,
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          page.description,
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                color: AppColors.onSurfaceMuted,
-                              ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+      backgroundColor: CyberColors.background,
+      body: AnimatedGradientBackground(
+        child: SafeArea(
+          child: Column(
+            children: [
+              // Skip button
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 16, top: 8),
+                  child: TextButton(
+                    onPressed: () => context.go(AppRoutes.registration),
+                    child: Text(
+                      'Skip',
+                      style: CyberTypography.labelLarge.copyWith(
+                        color: CyberColors.onSurfaceMuted,
+                      ),
                     ),
-                  );
-                },
-              ),
-            ),
-            // Dot indicators
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(
-                _pages.length,
-                (index) => AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: _currentPage == index ? 24 : 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    color: _currentPage == index
-                        ? AppColors.primary
-                        : AppColors.onSurfaceMuted,
-                    borderRadius: BorderRadius.circular(4),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 32),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: ElevatedButton(
-                onPressed: _onNext,
-                child: Text(
-                  _currentPage == _pages.length - 1
-                      ? 'Get Started'
-                      : 'Next',
+
+              // Pages
+              Expanded(
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: _pages.length,
+                  onPageChanged: (index) =>
+                      setState(() => _currentPage = index),
+                  itemBuilder: (context, index) {
+                    final page = _pages[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 36),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Clean icon badge — no glow
+                          NeonIconBadge(
+                            icon: page.icon,
+                            color: page.iconColor,
+                            size: 100,
+                            iconSize: 48,
+                          ),
+                          const SizedBox(height: 44),
+
+                          // Title
+                          Text(
+                            page.title,
+                            style: CyberTypography.headlineMedium.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 16),
+
+                          // Description
+                          Text(
+                            page.description,
+                            style: CyberTypography.bodyLarge.copyWith(
+                              color: CyberColors.onSurfaceVariant,
+                              height: 1.65,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
-            ),
-            const SizedBox(height: 24),
-          ],
+
+              // Page indicators — solid dots, no gradient/glow
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  _pages.length,
+                  (index) => AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    curve: Curves.easeOutCubic,
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    width: _currentPage == index ? 24 : 6,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      color: _currentPage == index
+                          ? CyberColors.neonGreen
+                          : CyberColors.onSurfaceMuted.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 36),
+
+              // Next / Get Started button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: CyberGradientButton(
+                  label: _currentPage == _pages.length - 1
+                      ? 'Get Started'
+                      : 'Continue',
+                  icon: _currentPage == _pages.length - 1
+                      ? Icons.arrow_forward_rounded
+                      : Icons.arrow_forward_rounded,
+                  onPressed: _onNext,
+                ),
+              ),
+
+              const SizedBox(height: 36),
+            ],
+          ),
         ),
       ),
     );
@@ -137,11 +183,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
 class _OnboardingPage {
   final IconData icon;
+  final Color iconColor;
   final String title;
   final String description;
 
   const _OnboardingPage({
     required this.icon,
+    required this.iconColor,
     required this.title,
     required this.description,
   });

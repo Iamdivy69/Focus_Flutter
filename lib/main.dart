@@ -6,6 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/theme/app_theme.dart';
 import 'core/navigation/app_router.dart';
+import 'core/navigation/debug_navigator.dart';
 import 'core/supabase_options.dart';
 import 'data/local/isar_service.dart';
 // TODO: Uncomment after running 'flutterfire configure' to generate firebase_options.dart
@@ -56,6 +57,10 @@ class FocusShieldApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkTheme,
       routerConfig: appRouter,
+      builder: (context, child) {
+        if (child == null) return const SizedBox.shrink();
+        return DebugNavigator(child: child);
+      },
     );
   }
 }
