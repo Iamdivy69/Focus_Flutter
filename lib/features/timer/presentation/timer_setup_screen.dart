@@ -3,8 +3,6 @@ import 'package:go_router/go_router.dart';
 import '../../../core/navigation/app_router.dart';
 import '../../../core/theme/color_palette.dart';
 import '../../../core/theme/typography.dart';
-import '../../../core/theme/widgets/animated_gradient_background.dart';
-import '../../../core/theme/widgets/cyber_glass_card.dart';
 import '../../../core/theme/widgets/cyber_gradient_button.dart';
 
 /// Timer Setup Screen — Configure focus session.
@@ -21,129 +19,176 @@ class _TimerSetupScreenState extends State<TimerSetupScreen> {
 
   final _durations = [15, 25, 45, 60, 90];
   final _modes = ['Deep Focus', 'Pomodoro', 'Zen Mode'];
-  final _modeIcons = [Icons.psychology_rounded, Icons.timer_rounded, Icons.self_improvement_rounded];
-  final _modeColors = [CyberColors.neonGreen, CyberColors.electricBlueBright, CyberColors.cyan];
+  final _modeIcons = [
+    Icons.psychology_rounded,
+    Icons.timer_rounded,
+    Icons.self_improvement_rounded,
+  ];
+  final _modeColors = [
+    CyberColors.neonGreen,
+    CyberColors.electricBlue,
+    CyberColors.electricBlueBright,
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CyberColors.background,
       extendBodyBehindAppBar: true,
-      appBar: AppBar(title: const Text('Start Focus Session')),
-      body: AnimatedGradientBackground(
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Duration selector
-                Text('Duration', style: CyberTypography.titleMedium.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: _durations.map((min) {
-                    final isSelected = min == _selectedMinutes;
-                    return GestureDetector(
-                      onTap: () => setState(() => _selectedMinutes = min),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 250),
-                        width: 58,
-                        height: 58,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: isSelected ? CyberColors.buttonGradient : null,
-                          color: isSelected ? null : CyberColors.surfaceContainerHigh.withOpacity(0.5),
-                          border: Border.all(
-                            color: isSelected ? Colors.transparent : CyberColors.outlineVariant,
-                          ),
-                          boxShadow: isSelected ? [BoxShadow(color: CyberColors.neonGreen.withOpacity(0.3), blurRadius: 16)] : null,
-                        ),
-                        child: Center(
-                          child: Text(
-                            '$min',
-                            style: CyberTypography.labelLarge.copyWith(
-                              color: isSelected ? CyberColors.onNeonGreen : CyberColors.onSurfaceVariant,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+      appBar: AppBar(title: const Text('Focus Session')),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // ── Duration ─────────────────────────────────────────
+              Text(
+                'Duration',
+                style: CyberTypography.titleSmall.copyWith(
+                  color: CyberColors.onSurfaceVariant,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: _durations.map((min) {
+                  final isSelected = min == _selectedMinutes;
+                  return GestureDetector(
+                    onTap: () => setState(() => _selectedMinutes = min),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      width: 56,
+                      height: 56,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: isSelected
+                            ? CyberColors.neonGreen
+                            : CyberColors.surface,
+                        border: Border.all(
+                          color: isSelected
+                              ? Colors.transparent
+                              : Colors.white.withOpacity(0.08),
                         ),
                       ),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 8),
-                Center(
-                  child: Text(
-                    '$_selectedMinutes minutes',
-                    style: CyberTypography.bodySmall.copyWith(color: CyberColors.onSurfaceVariant),
-                  ),
-                ),
-
-                const SizedBox(height: 32),
-
-                // Mode selector
-                Text('Focus Mode', style: CyberTypography.titleMedium.copyWith(color: Colors.white, fontWeight: FontWeight.w600)),
-                const SizedBox(height: 16),
-                ...List.generate(_modes.length, (index) {
-                  final isSelected = index == _selectedModeIndex;
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: GestureDetector(
-                      onTap: () => setState(() => _selectedModeIndex = index),
-                      child: CyberGlassCard(
-                        borderColor: isSelected ? _modeColors[index] : CyberColors.outlineVariant,
-                        borderOpacity: isSelected ? 0.3 : 0.08,
-                        backgroundOpacity: isSelected ? 0.5 : 0.3,
-                        padding: const EdgeInsets.all(16),
-                        glow: isSelected ? [BoxShadow(color: _modeColors[index].withOpacity(0.1), blurRadius: 20)] : null,
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 44,
-                              height: 44,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: _modeColors[index].withOpacity(0.12),
-                              ),
-                              child: Icon(_modeIcons[index], color: _modeColors[index], size: 22),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Text(
-                                _modes[index],
-                                style: CyberTypography.titleSmall.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
-                              ),
-                            ),
-                            if (isSelected)
-                              Container(
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: _modeColors[index].withOpacity(0.15),
-                                ),
-                                child: Icon(Icons.check_rounded, color: _modeColors[index], size: 16),
-                              ),
-                          ],
+                      child: Center(
+                        child: Text(
+                          '$min',
+                          style: CyberTypography.labelLarge.copyWith(
+                            color: isSelected
+                                ? Colors.white
+                                : CyberColors.onSurfaceVariant,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
                     ),
                   );
-                }),
-
-                const Spacer(),
-
-                // Start button
-                CyberGradientButton(
-                  label: 'Start Focus Session',
-                  icon: Icons.play_arrow_rounded,
-                  // Navigate to nested timer route within this branch
-                  onPressed: () => context.go(AppRoutes.timer),
+                }).toList(),
+              ),
+              const SizedBox(height: 6),
+              Center(
+                child: Text(
+                  '$_selectedMinutes minutes',
+                  style: CyberTypography.bodySmall.copyWith(
+                    color: CyberColors.onSurfaceMuted,
+                  ),
                 ),
+              ),
 
-                const SizedBox(height: 16),
-              ],
-            ),
+              const SizedBox(height: 28),
+
+              // ── Mode ─────────────────────────────────────────────
+              Text(
+                'Focus Mode',
+                style: CyberTypography.titleSmall.copyWith(
+                  color: CyberColors.onSurfaceVariant,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              const SizedBox(height: 12),
+              ...List.generate(_modes.length, (index) {
+                final isSelected = index == _selectedModeIndex;
+                final color = _modeColors[index];
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: GestureDetector(
+                    onTap: () => setState(() => _selectedModeIndex = index),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      padding: const EdgeInsets.all(14),
+                      decoration: BoxDecoration(
+                        // Selected: slightly lighter surface + colored border
+                        color: isSelected
+                            ? CyberColors.surfaceBright
+                            : CyberColors.surface,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: isSelected
+                              ? color.withOpacity(0.25)
+                              : Colors.white.withOpacity(0.04),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 38,
+                            height: 38,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: color.withOpacity(0.10),
+                            ),
+                            child: Icon(
+                              _modeIcons[index],
+                              color: isSelected ? color : CyberColors.onSurfaceMuted,
+                              size: 19,
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Text(
+                              _modes[index],
+                              style: CyberTypography.titleSmall.copyWith(
+                                color: isSelected
+                                    ? Colors.white
+                                    : CyberColors.onSurfaceVariant,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          if (isSelected)
+                            Container(
+                              width: 22,
+                              height: 22,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: color.withOpacity(0.12),
+                              ),
+                              child: Icon(
+                                Icons.check_rounded,
+                                color: color,
+                                size: 13,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
+
+              const Spacer(),
+
+              // ── Start ─────────────────────────────────────────────
+              CyberGradientButton(
+                label: 'Start Focus Session',
+                icon: Icons.play_arrow_rounded,
+                onPressed: () => context.go(AppRoutes.timer),
+              ),
+
+              const SizedBox(height: 16),
+            ],
           ),
         ),
       ),

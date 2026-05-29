@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import '../color_palette.dart';
 
-/// Clean matte background widget.
-///
-/// Provides a deep dark surface. The `showAurora` flag is kept for
-/// API compatibility but is now a no-op — decorative blobs removed.
+/// No-op background wrapper — previously rendered aurora blobs.
+/// Now a pure transparent passthrough. All screens set their own
+/// backgroundColor on Scaffold. This class is kept for API compatibility.
 class AnimatedGradientBackground extends StatelessWidget {
   final Widget child;
-  // ignore: avoid_field_initializers_in_const_classes
-  final bool showAurora; // kept for API compat — no longer does anything
+
+  /// Ignored — kept for backwards compatibility only.
+  final bool showAurora;
 
   const AnimatedGradientBackground({
     super.key,
@@ -17,10 +16,5 @@ class AnimatedGradientBackground extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: CyberColors.background,
-      child: child,
-    );
-  }
+  Widget build(BuildContext context) => child;
 }

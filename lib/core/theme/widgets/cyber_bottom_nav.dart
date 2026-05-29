@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../color_palette.dart';
 import '../typography.dart';
 
-/// Floating bottom navigation bar — minimal glass.
+/// Persistent floating bottom navigation bar.
 ///
-/// Light frosted background, neutral border, no neon glow.
+/// Minimal glass — very light frosted surface, no neon, no glow.
+/// Height tuned down to feel native and lightweight.
 class CyberBottomNav extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
@@ -27,20 +28,20 @@ class CyberBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+      margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(22),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
           child: Container(
-            height: 64,
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            height: 58,
+            padding: const EdgeInsets.symmetric(horizontal: 4),
             decoration: BoxDecoration(
-              // Subtle frosted dark surface
-              color: CyberColors.surface.withOpacity(0.85),
-              borderRadius: BorderRadius.circular(24),
+              // Minimal frosted surface — barely transparent
+              color: CyberColors.surface.withOpacity(0.90),
+              borderRadius: BorderRadius.circular(22),
               border: Border.all(
-                color: Colors.white.withOpacity(0.06),
+                color: Colors.white.withOpacity(0.04),
               ),
             ),
             child: Row(
@@ -53,24 +54,24 @@ class CyberBottomNav extends StatelessWidget {
                   onTap: () => onTap(index),
                   behavior: HitTestBehavior.opaque,
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 180),
                     curve: Curves.easeOut,
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 200),
+                          duration: const Duration(milliseconds: 180),
                           child: Icon(
                             isActive ? item.activeIcon : item.icon,
                             key: ValueKey(isActive),
                             color: isActive
                                 ? CyberColors.neonGreen
                                 : CyberColors.onSurfaceMuted,
-                            size: 22,
+                            size: 20,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 3),
                         Text(
                           item.label,
                           style: CyberTypography.labelSmall.copyWith(
@@ -78,17 +79,7 @@ class CyberBottomNav extends StatelessWidget {
                                 ? CyberColors.neonGreen
                                 : CyberColors.onSurfaceMuted,
                             fontSize: 10,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        // Active indicator — tiny dot, no glow
-                        AnimatedContainer(
-                          duration: const Duration(milliseconds: 200),
-                          width: isActive ? 4 : 0,
-                          height: isActive ? 4 : 0,
-                          decoration: const BoxDecoration(
-                            color: CyberColors.neonGreen,
-                            shape: BoxShape.circle,
+                            fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
                           ),
                         ),
                       ],

@@ -99,14 +99,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // Clean icon badge — no glow
+                          // Compact icon badge — no glow
                           NeonIconBadge(
                             icon: page.icon,
                             color: page.iconColor,
-                            size: 100,
-                            iconSize: 48,
+                            size: 72,
+                            iconSize: 36,
                           ),
-                          const SizedBox(height: 44),
+                          const SizedBox(height: 32),
 
                           // Title
                           Text(
@@ -119,12 +119,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                           const SizedBox(height: 16),
 
-                          // Description
                           Text(
                             page.description,
-                            style: CyberTypography.bodyLarge.copyWith(
+                            style: CyberTypography.bodyMedium.copyWith(
                               color: CyberColors.onSurfaceVariant,
-                              height: 1.65,
+                              height: 1.6,
                             ),
                             textAlign: TextAlign.center,
                           ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -8,17 +7,11 @@ import 'core/theme/app_theme.dart';
 import 'core/navigation/app_router.dart';
 import 'core/navigation/debug_navigator.dart';
 import 'core/supabase_options.dart';
+import 'core/background/usage_sync_service.dart';
 import 'data/local/isar_service.dart';
-// TODO: Uncomment after running 'flutterfire configure' to generate firebase_options.dart
-// import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Initialize Firebase (for FCM only) - Uncomment after generating firebase_options.dart
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
 
   // Initialize Supabase if keys are provided (allows local-only testing)
   if (SupabaseOptions.url.isNotEmpty && SupabaseOptions.anonKey.isNotEmpty) {
@@ -34,11 +27,12 @@ Future<void> main() async {
     debugPrint('⚠️ Supabase keys missing. App is running in local-only mode.');
   }
 
-  // Initialize IsarService (Phase 0, Prompt 3)
+  // Initialize IsarService — must be before any DAO access
   await IsarService.instance.open();
 
-  // TODO: Initialize WorkManagerService (Phase 10, Prompt 23)
-  // await WorkManagerService.initialize();
+  // Initialize WorkManager for background usage sync
+  await UsageSyncService.initialize();
+  await UsageSyncService.registerPeriodicTask();
 
   runApp(
     const ProviderScope(

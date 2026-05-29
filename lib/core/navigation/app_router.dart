@@ -9,6 +9,7 @@ import '../../features/auth/presentation/otp_verification_screen.dart';
 import '../../features/dashboard/presentation/dashboard_screen.dart';
 import '../../features/dashboard/presentation/permissions/permission_setup_screen.dart';
 import '../../features/blocking/presentation/block_screen.dart';
+import '../../features/blocking/presentation/app_limits_screen.dart';
 import '../../features/timer/presentation/timer_setup_screen.dart';
 import '../../features/timer/presentation/timer_screen.dart';
 import '../../features/timer/presentation/session_completed_screen.dart';
@@ -72,6 +73,7 @@ class AppRoutes {
   static const String timer = '/timer-setup/timer';
   static const String sessionCompleted = '/timer-setup/session-completed';
   static const String arjunaChat = '/dashboard/arjuna-chat';
+  static const String appLimits = '/dashboard/app-limits';
 
   // Full-screen overlays (no shell)
   static const String blockScreen = '/block-screen';
@@ -178,6 +180,12 @@ final GoRouter appRouter = GoRouter(
                   name: 'arjunaChat',
                   pageBuilder: (context, state) =>
                       _buildPage(const ArjunaChatScreen(), state),
+                ),
+                GoRoute(
+                  path: 'app-limits',
+                  name: 'appLimits',
+                  pageBuilder: (context, state) =>
+                      _buildPage(const AppLimitsScreen(), state),
                 ),
               ],
             ),

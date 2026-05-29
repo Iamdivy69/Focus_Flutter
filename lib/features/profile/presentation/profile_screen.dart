@@ -21,20 +21,20 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 // Clean avatar — flat circle, no glow
                 Container(
-                  width: 96,
-                  height: 96,
+                  width: 80,
+                  height: 80,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: CyberColors.neonGreen.withOpacity(0.10),
                     border: Border.all(
-                      color: CyberColors.neonGreen.withOpacity(0.20),
-                      width: 2,
+                      color: CyberColors.neonGreen.withOpacity(0.15),
+                      width: 1.5,
                     ),
                   ),
                   child: const Icon(
                     Icons.person_rounded,
                     color: CyberColors.neonGreen,
-                    size: 44,
+                    size: 36,
                   ),
                 ),
                 const SizedBox(height: 16),

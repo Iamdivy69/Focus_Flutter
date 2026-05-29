@@ -32,7 +32,7 @@ class CyberNeonProgressBar extends StatelessWidget {
         return Container(
           height: height,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.06),
+            color: Colors.white.withOpacity(0.04),
             borderRadius: BorderRadius.circular(height / 2),
           ),
           child: Stack(
@@ -41,15 +41,9 @@ class CyberNeonProgressBar extends StatelessWidget {
                 widthFactor: animatedProgress,
                 child: Container(
                   decoration: BoxDecoration(
-                    // If custom gradientColors provided use them, else flat color
-                    gradient: gradientColors != null && gradientColors!.length >= 2
-                        ? LinearGradient(
-                            colors: gradientColors!,
-                          )
-                        : null,
-                    color: gradientColors == null ? fillColor : null,
+                    // Always flat single color — gradients on thin bars look gaming-like
+                    color: fillColor,
                     borderRadius: BorderRadius.circular(height / 2),
-                    // No glow shadow
                   ),
                 ),
               ),

@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import '../../../core/navigation/app_router.dart';
 import '../../../core/theme/color_palette.dart';
 import '../../../core/theme/typography.dart';
-import '../../../core/theme/widgets/animated_gradient_background.dart';
 import '../../../core/theme/widgets/cyber_progress_ring.dart';
 
 /// Active Focus Timer Screen.
@@ -14,9 +13,7 @@ class TimerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CyberColors.background,
-      body: AnimatedGradientBackground(
-        showAurora: true,
-        child: SafeArea(
+      body: SafeArea(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -27,8 +24,8 @@ class TimerScreen extends StatelessWidget {
                 CyberProgressRing(
                   value: 72,
                   maxValue: 100,
-                  size: 260,
-                  strokeWidth: 14,
+                  size: 220,
+                  strokeWidth: 12,
                   center: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -112,7 +109,6 @@ class TimerScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

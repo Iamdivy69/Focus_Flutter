@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/color_palette.dart';
 import '../../../core/theme/typography.dart';
-import '../../../core/theme/widgets/animated_gradient_background.dart';
 import '../../../core/theme/widgets/cyber_gradient_button.dart';
 import '../../../core/theme/widgets/cyber_progress_ring.dart';
 
@@ -23,10 +22,9 @@ class FriendsScreen extends StatelessWidget {
       backgroundColor: CyberColors.background,
       extendBodyBehindAppBar: true,
       appBar: AppBar(title: const Text('Friends')),
-      body: AnimatedGradientBackground(
-        child: SafeArea(
+      body: SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -58,15 +56,14 @@ class FriendsScreen extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Container(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
                       decoration: BoxDecoration(
                         color: CyberColors.surface,
-                        borderRadius: BorderRadius.circular(18),
+                        borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          // Top rank: slightly brighter border — no glow
                           color: isTopRank
-                              ? CyberColors.neonGreen.withOpacity(0.15)
-                              : Colors.white.withOpacity(0.06),
+                              ? CyberColors.neonGreen.withOpacity(0.14)
+                              : Colors.white.withOpacity(0.04),
                         ),
                       ),
                       child: Row(
@@ -87,13 +84,13 @@ class FriendsScreen extends StatelessWidget {
                           const SizedBox(width: 12),
                           // Avatar
                           Container(
-                            width: 42,
-                            height: 42,
+                            width: 38,
+                            height: 38,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               color: friend.color.withOpacity(0.10),
                               border: Border.all(
-                                color: friend.color.withOpacity(0.20),
+                                color: friend.color.withOpacity(0.16),
                               ),
                             ),
                             child: Center(
@@ -150,7 +147,6 @@ class FriendsScreen extends StatelessWidget {
               ],
             ),
           ),
-        ),
       ),
     );
   }

@@ -43,7 +43,7 @@ class CyberProgressRing extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // Subtle ambient glow behind ring — tuned down for premium feel
+              // Subtle ambient glow — tuned for premium feel
               Container(
                 width: size * 0.85,
                 height: size * 0.85,
@@ -52,10 +52,10 @@ class CyberProgressRing extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                       color: effectiveGlowColor.withOpacity(
-                        0.12 * animatedValue, // was 0.15
+                        0.08 * animatedValue,
                       ),
-                      blurRadius: 24, // was 40
-                      spreadRadius: 4, // was 10
+                      blurRadius: 20,
+                      spreadRadius: 2,
                     ),
                   ],
                 ),
@@ -66,7 +66,7 @@ class CyberProgressRing extends StatelessWidget {
                 painter: _RingPainter(
                   progress: 1.0,
                   strokeWidth: strokeWidth,
-                  color: Colors.white.withOpacity(0.06),
+                  color: Colors.white.withOpacity(0.05),
                   isTrack: true,
                 ),
               ),

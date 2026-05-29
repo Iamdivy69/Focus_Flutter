@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../../core/theme/color_palette.dart';
 import '../../../core/theme/typography.dart';
-import '../../../core/theme/widgets/animated_gradient_background.dart';
 import '../../../core/theme/widgets/cyber_neon_progress_bar.dart';
+import '../../blocking/presentation/dev_tools_section.dart';
 
 /// Statistics Screen — Charts and analytics.
 class StatsScreen extends StatelessWidget {
@@ -15,8 +15,7 @@ class StatsScreen extends StatelessWidget {
       backgroundColor: CyberColors.background,
       extendBodyBehindAppBar: true,
       appBar: AppBar(title: const Text('Statistics')),
-      body: AnimatedGradientBackground(
-        child: SafeArea(
+      body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
             child: Column(
@@ -196,11 +195,11 @@ class StatsScreen extends StatelessWidget {
                 const _AppBreakdownItem(name: 'Twitter', time: '12 min', progress: 0.4, color: CyberColors.neonGreen),
                 const SizedBox(height: 8),
                 const _AppBreakdownItem(name: 'TikTok', time: '8 min', progress: 0.4, color: CyberColors.neonGreen),
+                const DevToolsSection(),
               ],
             ),
           ),
         ),
-      ),
     );
   }
 }

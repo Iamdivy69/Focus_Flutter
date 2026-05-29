@@ -52,12 +52,12 @@ class CyberColors {
   static const Color outline = Color(0xFF475569);
   static const Color outlineVariant = Color(0xFF334155);
   static const Color borderSubtle = Color(0xFF1E293B);
-  /// Standard card border — very subtle white tint
-  static const Color borderCard = Color(0x0FFFFFFF); // white at ~6%
+  /// Standard card border — barely-there white tint (4%)
+  static const Color borderCard = Color(0x0AFFFFFF); // white at ~4%
 
   // ─── Semantic / Score Band Colors ─────────────────────────────
   static const Color scoreExcellent = Color(0xFF22C55E);
-  static const Color scoreHealthy = Color(0xFF14B8A6);
+  static const Color scoreHealthy = Color(0xFF10B981); // emerald — calmer than teal
   static const Color scoreModerate = Color(0xFFF59E0B);
   static const Color scoreAtRisk = Color(0xFFF97316);
   static const Color scoreCritical = Color(0xFFEF4444);

@@ -31,7 +31,7 @@ class CyberGradientButton extends StatefulWidget {
     this.icon,
     this.isLoading = false,
     this.gradient,
-    this.height = 52,
+    this.height = 48,
     this.fullWidth = true,
   });
 
@@ -102,21 +102,11 @@ class _CyberGradientButtonState extends State<CyberGradientButton>
               ? null
               : const EdgeInsets.symmetric(horizontal: 28),
           decoration: BoxDecoration(
-            // Solid green — no gradient/glow. White text reads perfectly on #22C55E.
+            // Flat solid green — no shadow, no gradient.
             color: isDisabled
                 ? CyberColors.surfaceContainerHigh
                 : CyberColors.neonGreen,
             borderRadius: BorderRadius.circular(14),
-            boxShadow: isDisabled
-                ? null
-                : [
-                    BoxShadow(
-                      color: CyberColors.neonGreen.withOpacity(0.15),
-                      blurRadius: 8,
-                      spreadRadius: 0,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
           ),
           child: Center(
             child: widget.isLoading

@@ -32,14 +32,13 @@ class SessionCompletedScreen extends StatelessWidget {
               children: [
                 const Spacer(flex: 2),
 
-                // Success icon — clean, no glow
                 const NeonIconBadge(
                   icon: Icons.check_circle_rounded,
                   color: CyberColors.neonGreen,
-                  size: 100,
-                  iconSize: 48,
+                  size: 76,
+                  iconSize: 36,
                 ),
-                const SizedBox(height: 28),
+                const SizedBox(height: 24),
 
                 Text(
                   'Session Complete!',
@@ -125,11 +124,11 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
       decoration: BoxDecoration(
         color: CyberColors.surface,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.white.withOpacity(0.06)),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.white.withOpacity(0.04)),
       ),
       child: Column(
         children: [

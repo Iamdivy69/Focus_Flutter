@@ -42,14 +42,13 @@ class _PrivacyConsentScreenState extends State<PrivacyConsentScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Hero icon — flat, no glow
                       const NeonIconBadge(
                         icon: Icons.verified_user_rounded,
                         color: CyberColors.neonGreen,
-                        size: 88,
-                        iconSize: 40,
+                        size: 68,
+                        iconSize: 32,
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 18),
 
                       Text(
                         'Your Data Stays Yours',
@@ -167,12 +166,11 @@ class _PrivacyConsentScreenState extends State<PrivacyConsentScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NeonIconBadge(
-            icon: icon,
-            color: value ? iconColor : CyberColors.onSurfaceMuted,
-            size: 44,
-            iconSize: 22,
-          ),
-          const SizedBox(width: 14),
+                            icon: icon,
+                            color: value ? iconColor : CyberColors.onSurfaceMuted,
+                            size: 40,
+                            iconSize: 20,
+                          ),const SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
